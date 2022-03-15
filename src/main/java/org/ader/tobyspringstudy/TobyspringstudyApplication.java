@@ -1,6 +1,8 @@
 package org.ader.tobyspringstudy;
 
 import org.ader.tobyspringstudy.dao.ArticleDao;
+import org.ader.tobyspringstudy.dao.CountingConnectionMaker;
+import org.ader.tobyspringstudy.dao.CountingDaoFactory;
 import org.ader.tobyspringstudy.dao.DaoFactory;
 import org.ader.tobyspringstudy.domain.Article;
 import org.springframework.boot.SpringApplication;
@@ -52,5 +54,12 @@ public class TobyspringstudyApplication {
 		ArticleDao articleDao4 = ac.getBean("articleDao", ArticleDao.class);
 		System.out.println(articleDao3);
 		System.out.println(articleDao4);
+
+		System.out.println("---카운팅 dao 사용---");
+		AnnotationConfigApplicationContext acac = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
+		ArticleDao articleDao5 = acac.getBean("articleDao", ArticleDao.class);
+
+		CountingConnectionMaker ccm = acac.getBean("connectionMaker", CountingConnectionMaker.class);
+		System.out.println("Connection count = " + ccm.getCounter());
 	}
 }
