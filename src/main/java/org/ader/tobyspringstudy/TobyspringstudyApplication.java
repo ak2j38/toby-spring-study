@@ -5,6 +5,8 @@ import org.ader.tobyspringstudy.dao.DaoFactory;
 import org.ader.tobyspringstudy.domain.Article;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -15,7 +17,9 @@ public class TobyspringstudyApplication {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		//SpringApplication.run(TobyspringstudyApplication.class, args);
 
-		ArticleDao articleDao = new DaoFactory().articleDao();
+		ApplicationContext ac = new AnnotationConfigApplicationContext(DaoFactory.class);
+
+		ArticleDao articleDao = ac.getBean("articleDao", ArticleDao.class);
 
 		Article article = new Article();
 		article.setId(1L);
