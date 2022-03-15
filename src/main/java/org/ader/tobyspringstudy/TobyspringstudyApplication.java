@@ -1,6 +1,7 @@
 package org.ader.tobyspringstudy;
 
 import org.ader.tobyspringstudy.dao.ArticleDao;
+import org.ader.tobyspringstudy.dao.ConnectionMaker;
 import org.ader.tobyspringstudy.dao.WooWahanArticleDao;
 import org.ader.tobyspringstudy.domain.Article;
 import org.springframework.boot.SpringApplication;
@@ -15,7 +16,9 @@ public class TobyspringstudyApplication {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		//SpringApplication.run(TobyspringstudyApplication.class, args);
 
-		ArticleDao articleDao = new WooWahanArticleDao();
+		ConnectionMaker connectionMaker = new WooWahanArticleDao();
+
+		ArticleDao articleDao = new ArticleDao(connectionMaker);
 
 		Article article = new Article();
 		article.setId(1L);
